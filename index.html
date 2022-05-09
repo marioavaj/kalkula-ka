@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">    
+    <link rel="stylesheet" href="DS-DIGI.TTF">
+    <title>Kalkulacka</title>
+</head>
+<body style="font-family: DS-Digital">
+
+    
+    
+    <div class="kalkulacka">
+        <div class="inputWrapper">
+    <input  id="number1" value="0" type="number" name="number">
+
+    <select id="operations">
+    <option class="option" value="0">+</option>
+  <option class="option" value="1">-</option>
+  <option class="option" value="2">x</option>
+  <option class="option" value="3">:</option>
+    </select> 
+
+    <input id="number2" value="0" type="number" name="number" >
+
+    <button id="equal" onclick="equal()">=</button>
+
+    <input id="result"  value="0" readonly >
+</div>
+<br>
+<div class="memoryButtons">
+    <button id="M1" value="0" onclick="memoryWrite1()">M1</button>
+    <button id="M2" value="1" onclick="memoryWrite2()">M2</button>
+    <button id="M3" value="2" onclick="memoryWrite3()">M3</button>
+    <button id="M4" value="3" onclick="memoryWrite4()">M4</button>
+    <button id="M5" value="4" onclick="memoryWrite5()">M5</button>
+    <button id="clear"  onclick="clearDisplay()">C</button>
+</div>
+</div>
+
+<div id="lastCalculations">
+
+
+</div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

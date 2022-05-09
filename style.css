@@ -1,0 +1,83 @@
+@font-face {
+    font-family: "DS-Digital";
+    src: url('/DS-DIGI.TTF');
+  }
+
+body {
+  background-color: darkgrey;
+}
+
+input {
+  width: 80px;
+  height: 40px;
+  font-family: "DS-Digital";
+  font-size: 3em;
+  border-radius: 3px;
+  border-color: transparent;
+}
+
+.kalkulacka {
+  margin: 1em;
+  padding: 1em;
+  background-color: rgb(157, 243, 72);
+  width: 380px;
+}
+
+.lastCalculations li{
+    margin: 1em;
+    padding: 1em;
+    background-color: rgb(157, 243, 72);
+    width: 380px;
+}
+
+
+
+.memoryButtons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.memoryButtons button {
+  width: 20%;
+  height: 3em;
+  margin: 0.3em;
+  cursor: pointer;
+}
+
+select {
+    font-family: "DS-Digital";
+  height: 46px;
+  font-size: 2em;
+  font-weight: 700;
+  border-radius: 3px;
+  border-color: transparent;
+  
+}
+
+#equal {
+  height: 46px;
+  font-size: 2em;
+  font-weight: 700;
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(117, 116, 116);
+  cursor: pointer;
+}
+
+.inputWrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+}
+
+input:read-only{
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    border: black 1px solid;
+    cursor:auto;
+}
+
+#clear{
+    background-color: brown;
+    color: white;
+}
