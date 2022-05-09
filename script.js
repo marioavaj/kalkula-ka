@@ -1,42 +1,53 @@
-let result = JSON.parse(localStorage.getItem("result"));
-document.getElementById("result").value=result;
+let result = JSON.parse(localStorage.getItem("result"));//nacitanie vysledku z LocalStorage
+document.getElementById("result").value=result;//priradenie hodnoty vysledku do elementu result
 
-let number1 = document.getElementById("number1");
-let number2 = document.getElementById("number2");
+let number1 = document.getElementById("number1");//premenna cislo 1 z inputu number1
+let number2 = document.getElementById("number2");//premenna cislo 1 z inputu number1
 
-let mathValue;
-mathValue = JSON.parse(localStorage.getItem("mathSymbol")); 
+let mathValue;//premenna matemtickej operacie (+, -, *, :) nacitane zo selectu
+mathValue = JSON.parse(localStorage.getItem("mathSymbol")); //nacitanie operacie  z LocalStorage
 
+/**IF sa vykona ak nie je v local Starage ulozena ziadna hodnota pre mat. operaciu */
 if (mathValue==undefined){
     mathValue="0";
 }
-document.querySelector("#operations").value = mathValue;
+
+document.querySelector("#operations").value = mathValue;// do selectoru na nacita hodnota matemtickej operacie (+, -, *, :)
 
 
-
+/**Pole pre ulozenie celych poslednych operacii (napr 1+1 = 2) */
 let listOperations=[];
+
+/**Pocitadlo funcie pre vypis poslednych 5 operacii na obrazovku */
 let counter=0;
+
 
 let list = document.getElementById("lastCalculations");
 
+/* premenne MEMORY */
 let m1 = document.getElementById("M1");
 let m2 = document.getElementById("M2");
 let m3 = document.getElementById("M3");
 let m4 = document.getElementById("M4");
 let m5 = document.getElementById("M5");
+
+/**Pomocna premenna pre MEMORY tlacidla, ktora s pouziva na overenie ci bolo tlacidlo stlacene */
 let counterMemory1 = 0;
 let counterMemory2 = 0;
 let counterMemory3 = 0;
 let counterMemory4 = 0;
 let counterMemory5 = 0;
 
-let addToScreenListCounter = 5;
 
+/**Nacitanie MEMORY tlacidiel z LocalStorage */
 let memory = JSON.parse(localStorage.getItem("memoryButtons"));
+ /**Ak nie su v LS ulozene data zobrazia sa na tlacidlach pamate M!,.... + siva farba */
 if (memory == null) {
+   
     memory = [{M1:"M1", color: "#EFEFEF"}, {M2:"M2", color: "#EFEFEF"}, {M3:"M3", color: "#EFEFEF"}, {M4:"M4", color: "#EFEFEF"}, {M5:"M5", color: "#EFEFEF"} ];
   }
 
+  /**Nacitanie hodnot cisel 1 a 2  z LocalStorage */
 number1.value = JSON.parse(localStorage.getItem("number1"));
 if(number1==null){
     number1.value="0";
@@ -46,6 +57,7 @@ if(number1==null){
     number2.value="0";
 }
 
+/**nacitanie textu do tlacidiel MEMORY 1 az 5 */
 m1.innerText = memory[0].M1;
 m1.style.backgroundColor = memory[0].color;
 
@@ -62,7 +74,7 @@ m5.innerText = memory[4].M5 ;
 m5.style.backgroundColor = memory[4].color;
 
 
-
+/**Ulozenie hodnot do LS */
 function toLocalStorage() {
   localStorage.setItem("memoryButtons", JSON.stringify(memory));
   localStorage.setItem("number1", JSON.stringify(number1));
@@ -73,15 +85,15 @@ function toLocalStorage() {
   
 }
 
+/** Funcia tlacidla =, ktora prevedie zvolenu matem. operaciu  */
 function equal() {
   number1 = document.getElementById("number1").value;
   number2 = document.getElementById("number2").value;
-
-
   let textOfOperation = document.querySelector("#operations");
   mathValue = textOfOperation.value;
 
   switch (mathValue) {
+      /**Vypocita sucet a ulozi (push) na posledne miesto v poli */
     case "0":
       result = parseInt(number1) + parseInt(number2);
       operations = number1 + " + " + number2 + " = " + result;
@@ -89,21 +101,21 @@ function equal() {
       toLocalStorage();
 
       break;
-
+/**Vypocita rozdiel a ulozi (push) na posledne miesto v poli */
     case "1":
       result = parseInt(number1) - parseInt(number2);
       operations = number1 + " - " + number2 + " = " + result;
       listOperations.push(operations);
       toLocalStorage();
       break;
-
+/**Vypocita sucin a ulozi (push) na posledne miesto v poli */
     case "2":
       result = parseInt(number1) * parseInt(number2);
       operations = number1 + " x " + number2 + " = " + result;
       listOperations.push(operations);
       toLocalStorage();
       break;
-
+/**Vypocita podiel a ulozi (push) na posledne miesto v poli */
     case "3":
       result = parseInt(number1) / parseInt(number2);
       operations = number1 + " : " + number2 + " = " + result;
@@ -111,12 +123,13 @@ function equal() {
       toLocalStorage();
       break;
   }
-  document.getElementById("result").value = result;  
+
+  document.getElementById("result").value = result;  //vypise hodnotu vysledku mat. operacie do input elementu
   addToScreenList()
 }
 
-/** Memory  buttons 1 to 5 */
-
+/**MEMORY BUTTONS 1-5 */
+/** Memory  buttons 1 to 5 (prvy krat stlacene : ulozenie do pamate + cervena farba, druhykrat stlacene Reset do sivej farby*/
 function memoryWrite1() {
   if (counterMemory1 == 0) {
     memory[0] = { M1: result, color: "red"};
@@ -132,6 +145,7 @@ function memoryWrite1() {
   console.log(memory);
   toLocalStorage();
 }
+/** Memory  buttons 1 to 5 (prvy krat stlacene : ulozenie do pamate + cervena farba, druhykrat stlacene Reset do sivej farby*/
 function memoryWrite2() {
   if (counterMemory2 == 0) {
     memory[1] = { M2: result, color: "red" };
@@ -147,6 +161,7 @@ function memoryWrite2() {
   console.log(memory);
   toLocalStorage();
 }
+/** Memory  buttons 1 to 5 (prvy krat stlacene : ulozenie do pamate + cervena farba, druhykrat stlacene Reset do sivej farby*/
 
 function memoryWrite3() {
   if (counterMemory3 == 0) {
@@ -163,6 +178,7 @@ function memoryWrite3() {
   console.log(memory);
   toLocalStorage();
 }
+/** Memory  buttons 1 to 5 (prvy krat stlacene : ulozenie do pamate + cervena farba, druhykrat stlacene Reset do sivej farby*/
 
 function memoryWrite4() {
   if (counterMemory4 == 0) {
@@ -179,7 +195,7 @@ function memoryWrite4() {
   console.log(memory);
   toLocalStorage();
 }
-
+/** Memory  buttons 1 to 5 (prvy krat stlacene : ulozenie do pamate + cervena farba, druhykrat stlacene Reset do sivej farby*/
 function memoryWrite5() {
   if (counterMemory5 == 0) {
     memory[4] = { M5: result, color: "red" };
@@ -196,22 +212,24 @@ function memoryWrite5() {
   toLocalStorage();
 }
 
+/**Vypis poslednych mat. operacii na obrazovku pod kalkulacku */
 function addToScreenList() {
     console.log("vstup " + counter);
     
     var calculationList = document.getElementById("lastCalculations");
-    var calcItem = document.createElement("p");
-    calcItem.style.backgroundColor="yellow";
-    calcItem.style.width = "410px";
-    calcItem.style.marginLeft = "16px";
-    calcItem.style.marginBottom = "0px";
-    calcItem.style.marginTop = "0px";
-    calcItem.style.fontSize = "2em";
-        calcItem.innerHTML = listOperations[listOperations.length-1];
-    calculationList.appendChild(calcItem);
+    var calcItem = document.createElement("p");//vytvorenie p elemenu, do ktoreho sa vlozi vypocet
+    calcItem.style.backgroundColor="yellow";//stylovanie p elementu
+    calcItem.style.width = "410px";//stylovanie p elementu
+    calcItem.style.marginLeft = "16px";//stylovanie p elementu
+    calcItem.style.marginBottom = "0px";//stylovanie p elementu
+    calcItem.style.marginTop = "0px";//stylovanie p elementu
+    calcItem.style.fontSize = "2em";//stylovanie p elementu
+        calcItem.innerHTML = listOperations[listOperations.length-1];//vlozi za posledny prvok pola 
+    calculationList.appendChild(calcItem);//prida na obrayovku poslednu mat. operaciu
+    /**Pocita pocet vypisanych prvkov*/
         if (counter>=5){
         console.log(counter)
-        calculationList.removeChild(calcItem[0]);
+        calculationList.removeChild(calcItem[0]);//, ak je viac ako 5 tak prvy vymaze
     };
     counter++
     console.log("vystup " + counter);
@@ -228,6 +246,7 @@ function addToScreenList() {
     calculationList.appendChild(calcItem);*/
   }
 
+  /**funcia tlaciadla C reset kalkulacky */
   function clearDisplay(){
     document.getElementById("number1").value = "0"
     document.getElementById("number2").value = "0"
